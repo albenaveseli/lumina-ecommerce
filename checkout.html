@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — LUMINA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="checkout-page">
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">LUMINA</a>
+      <div class="checkout-steps">
+        <span class="step active" id="step-indicator-1">1. Të dhënat</span>
+        <span class="step-arrow">›</span>
+        <span class="step" id="step-indicator-2">2. Dërgesa</span>
+        <span class="step-arrow">›</span>
+        <span class="step" id="step-indicator-3">3. Pagesa</span>
+      </div>
+      <a href="index.html" class="nav-link" style="font-size:0.85rem">← Vazhdo blerjen</a>
+    </div>
+  </header>
+
+  <main class="checkout-main">
+    <div class="checkout-container">
+
+      <!-- FORMA -->
+      <div class="checkout-form-col">
+
+        <!-- HAPI 1: TË DHËNAT -->
+        <div class="checkout-step-panel" id="panel-1">
+          <h2>Të dhënat personale</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Emri *</label>
+              <input type="text" id="co-name" placeholder="Emri juaj" required>
+            </div>
+            <div class="form-group">
+              <label>Mbiemri *</label>
+              <input type="text" id="co-lastname" placeholder="Mbiemri juaj" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="co-email" placeholder="email@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Telefoni *</label>
+            <input type="tel" id="co-phone" placeholder="+383 4X XXX XXX" required>
+          </div>
+          <button class="btn-next" onclick="goToStep(2)">Vazhdo me Dërgesën →</button>
+        </div>
+
+        <!-- HAPI 2: DËRGESA -->
+        <div class="checkout-step-panel" id="panel-2" style="display:none">
+          <h2>Adresa e dërgesës</h2>
+          <div class="form-group">
+            <label>Shteti *</label>
+            <select id="co-country">
+              <option value="ks">Kosovë</option>
+              <option value="al">Shqipëri</option>
+              <option value="mk">Maqedoni e Veriut</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Qyteti *</label>
+            <input type="text" id="co-city" placeholder="Prishtinë" required>
+          </div>
+          <div class="form-group">
+            <label>Adresa *</label>
+            <input type="text" id="co-address" placeholder="Rr. Emërtimi Nr. X" required>
+          </div>
+          <div class="form-group">
+            <label>Kodi postar</label>
+            <input type="text" id="co-zip" placeholder="10000">
+          </div>
+
+          <h3 style="margin:1.5rem 0 1rem">Metoda e dërgesës</h3>
+          <div class="shipping-options">
+            <label class="shipping-opt selected" id="ship-standard">
+              <input type="radio" name="shipping" value="standard" checked onchange="updateShipping('standard')">
+              <div>
+                <strong>Standard</strong>
+                <span>3-5 ditë pune</span>
+              </div>
+              <span class="ship-price">€3.50</span>
+            </label>
+            <label class="shipping-opt" id="ship-express">
+              <input type="radio" name="shipping" value="express" onchange="updateShipping('express')">
+              <div>
+                <strong>Express</strong>
+                <span>1-2 ditë pune</span>
+              </div>
+              <span class="ship-price">€8.00</span>
+            </label>
+            <label class="shipping-opt" id="ship-free">
+              <input type="radio" name="shipping" value="free" onchange="updateShipping('free')">
+              <div>
+                <strong>Falas</strong>
+                <span>5-7 ditë pune (mbi €100)</span>
+              </div>
+              <span class="ship-price">€0.00</span>
+            </label>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-back" onclick="goToStep(1)">← Kthehu</button>
+            <button class="btn-next" onclick="goToStep(3)">Vazhdo me Pagesën →</button>
+          </div>
+        </div>
+
+        <!-- HAPI 3: PAGESA -->
+        <div class="checkout-step-panel" id="panel-3" style="display:none">
+          <h2>Informacioni i pagesës</h2>
+          <div class="payment-methods">
+            <button class="pay-method active" onclick="selectPayment('card', this)">
+              💳 Kartë krediti
+            </button>
+            <button class="pay-method" onclick="selectPayment('paypal', this)">
+              🅿 PayPal
+            </button>
+            <button class="pay-method" onclick="selectPayment('cash', this)">
+              💵 Para në dorë
+            </button>
+          </div>
+
+          <div id="card-fields">
+            <div class="form-group">
+              <label>Numri i kartës *</label>
+              <input type="text" id="co-card" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Data e skadimit *</label>
+                <input type="text" id="co-expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+              </div>
+              <div class="form-group">
+                <label>CVV *</label>
+                <input type="text" id="co-cvv" placeholder="123" maxlength="3">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Emri në kartë *</label>
+              <input type="text" id="co-cardname" placeholder="EMRI MBIEMRI">
+            </div>
+            <div class="secure-badge">
+              🔒 Pagesa është e sigurt dhe e enkriptuar (SSL)
+            </div>
+          </div>
+
+          <div id="paypal-fields" style="display:none">
+            <div class="paypal-info">
+              <p>Do të ridrejtoheni te PayPal për të përfunduar pagesën pas konfirmimit.</p>
+            </div>
+          </div>
+
+          <div id="cash-fields" style="display:none">
+            <div class="cash-info">
+              <p>Pagesa bëhet në dorëzim. Sigurohuni të keni shumën e saktë.</p>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-back" onclick="goToStep(2)">← Kthehu</button>
+            <button class="btn-place-order" onclick="placeOrder()">
+              🔒 Konfirmo Porosinë
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <aside class="order-summary">
+        <h3>Përmbledhja e porosisë</h3>
+        <div id="summary-items"></div>
+        <div class="summary-line">
+          <span>Nëntotali</span>
+          <span id="summary-subtotal">€0</span>
+        </div>
+        <div class="summary-line">
+          <span>Dërgesa</span>
+          <span id="summary-shipping">€3.50</span>
+        </div>
+        <div class="summary-line total">
+          <strong>Totali</strong>
+          <strong id="summary-total">€0</strong>
+        </div>
+        <div class="promo-row">
+          <input type="text" id="promo-input" placeholder="Kodi promovues">
+          <button onclick="applyPromo()">Apliko</button>
+        </div>
+        <div id="promo-msg" class="promo-msg"></div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ORDER SUCCESS MODAL -->
+  <div class="modal-overlay" id="success-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-icon">✓</div>
+      <h2>Porosia u konfirmua!</h2>
+      <p>Faleminderit për blerjen tuaj. Numri i porosisë suaj është:</p>
+      <div class="order-number" id="order-number">#LM-000000</div>
+      <p class="modal-sub">Një email konfirmimi do të dërgohet tek <strong id="confirm-email"></strong></p>
+      <a href="index.html" class="btn-checkout" style="display:block;text-align:center;margin-top:1.5rem">
+        Kthehu në dyqan
+      </a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="logo">LUMINA</span>
+      <p>© 2025 Lumina Electronics · Prishtinë, Kosovë</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>
