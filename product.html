@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkt — LUMINA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">LUMINA</a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">← Kthehu te produktet</a>
+      </nav>
+      <button class="cart-btn" onclick="toggleCart()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-count" id="cart-count">0</span>
+        Shporta
+      </button>
+    </div>
+  </header>
+
+  <main class="product-detail" id="product-detail">
+    <!-- Gjenerohet nga JS -->
+  </main>
+
+  <!-- RECOMMENDED -->
+  <section class="recommended-section">
+    <div class="container">
+      <h3>Mund të të pëlqejë gjithashtu</h3>
+      <div class="products-grid" id="recommended-grid"></div>
+    </div>
+  </section>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h3>Shporta</h3>
+      <button class="close-btn" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="cart-empty" id="cart-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+        </svg>
+        <p>Shporta është bosh</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span>Totali:</span>
+        <strong id="cart-total">€0</strong>
+      </div>
+      <a href="checkout.html" class="btn-checkout">Vazhdo me Pagesën →</a>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast">✓ Produkti u shtua në shportë</div>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="logo">LUMINA</span>
+      <p>© 2025 Lumina Electronics · Prishtinë, Kosovë</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/product-detail.js"></script>
+</body>
+</html>
