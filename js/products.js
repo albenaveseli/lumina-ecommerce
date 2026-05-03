@@ -210,4 +210,47 @@ function getProductSVG(type, color, size = 120) {
         <rect x="19" y="29" width="62" height="82" rx="17" fill="#0a1428" opacity="0.9"/>
         <rect x="23" y="33" width="54" height="74" rx="14" fill="${c}" opacity="0.1"/>
         <circle cx="50" cy="70" r="24" fill="${c}" opacity="0.12"/>
-        <text x="50" y="65" text-anchor="middle" fill="${c}" font-size="14" font-weight="bold" opacity="0.
+        <text x="50" y="65" text-anchor="middle" fill="${c}" font-size="14" font-weight="bold" opacity="0.8">10</text>
+        <text x="50" y="80" text-anchor="middle" fill="${c}" font-size="8" opacity="0.5">09:41</text>
+        <line x1="50" y1="70" x2="50" y2="54" stroke="${c}" stroke-width="2" opacity="0.6"/>
+        <line x1="50" y1="70" x2="60" y2="70" stroke="${c}" stroke-width="2" opacity="0.4"/>
+      </svg>`;
+    case 'buds': return `
+      <svg viewBox="0 0 140 120" width="${s*1.2}" height="${s}">
+        <rect x="20" y="20" width="100" height="80" rx="20" fill="${c}" opacity="0.12"/>
+        <ellipse cx="45" cy="60" rx="18" ry="24" fill="${c}" opacity="0.2"/>
+        <ellipse cx="45" cy="60" rx="12" ry="16" fill="#0a1428" opacity="0.9"/>
+        <circle cx="45" cy="60" r="6" fill="${c}" opacity="0.4"/>
+        <ellipse cx="95" cy="60" rx="18" ry="24" fill="${c}" opacity="0.2"/>
+        <ellipse cx="95" cy="60" rx="12" ry="16" fill="#0a1428" opacity="0.9"/>
+        <circle cx="95" cy="60" r="6" fill="${c}" opacity="0.4"/>
+        <line x1="63" y1="60" x2="77" y2="60" stroke="${c}" stroke-width="1.5" opacity="0.3" stroke-dasharray="3 2"/>
+      </svg>`;
+    case 'tablet': return `
+      <svg viewBox="0 0 140 180" width="${s}" height="${s*1.3}">
+        <rect x="15" y="10" width="110" height="160" rx="14" fill="${c}" opacity="0.15"/>
+        <rect x="19" y="14" width="102" height="152" rx="11" fill="#0a1428" opacity="0.9"/>
+        <rect x="23" y="18" width="94" height="144" rx="8" fill="${c}" opacity="0.08"/>
+        <circle cx="70" cy="158" r="6" fill="${c}" opacity="0.4"/>
+        <rect x="40" y="60" width="60" height="6" rx="2" fill="${c}" opacity="0.2"/>
+        <rect x="50" y="72" width="40" height="6" rx="2" fill="${c}" opacity="0.15"/>
+        <circle cx="70" cy="42" r="14" fill="${c}" opacity="0.2"/>
+        <circle cx="70" cy="42" r="7" fill="${c}" opacity="0.3"/>
+      </svg>`;
+    case 'charger': return `
+      <svg viewBox="0 0 120 120" width="${s}" height="${s}">
+        <rect x="25" y="15" width="70" height="80" rx="14" fill="${c}" opacity="0.2"/>
+        <rect x="29" y="19" width="62" height="72" rx="11" fill="#0a1428" opacity="0.9"/>
+        <rect x="50" y="8" width="8" height="12" rx="2" fill="${c}" opacity="0.5"/>
+        <rect x="62" y="8" width="8" height="12" rx="2" fill="${c}" opacity="0.5"/>
+        <circle cx="60" cy="55" r="16" fill="${c}" opacity="0.15"/>
+        <path d="M58 44 L52 57 L58 57 L56 68 L66 53 L60 53 Z" fill="${c}" opacity="0.6"/>
+        <rect x="35" y="97" width="50" height="8" rx="4" fill="${c}" opacity="0.3"/>
+      </svg>`;
+    default: return `<svg viewBox="0 0 100 100" width="${s}" height="${s}"><circle cx="50" cy="50" r="40" fill="${c}" opacity="0.2"/></svg>`;
+  }
+}
+
+function getStars(n) {
+  return '★'.repeat(n) + '☆'.repeat(5-n);
+}
