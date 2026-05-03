@@ -7,11 +7,8 @@ let shippingCost = 3.50;
 let promoDiscount = 0;
 let paymentMethod = 'card';
 
-// Merr shportën
-const cart = JSON.parse(localStorage.getItem('lumina_cart') || '[]');
-
 // Nëse shporta është bosh, kthehu
-if (cart.length === 0) {
+if (getCart().length === 0) {
   window.location.href = 'index.html';
 }
 
@@ -116,7 +113,7 @@ function updateSummary() {
   itemsEl.innerHTML = '';
   let subtotal = 0;
 
-  cart.forEach(item => {
+  getCart().forEach(item => {
     const p = PRODUCTS.find(p => p.id === item.id);
     if (!p) return;
     const lineTotal = p.price * item.qty;

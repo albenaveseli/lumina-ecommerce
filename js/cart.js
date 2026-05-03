@@ -2,50 +2,55 @@
 // LUMINA — Cart Management
 // ============================================
 
-let cart = JSON.parse(localStorage.getItem('lumina_cart') || '[]');
+function getCart() {
+  return JSON.parse(localStorage.getItem('lumina_cart') || '[]');
+}
 
-function saveCart() {
-  localStorage.setItem('lumina_cart', JSON.stringify(cart));
+function saveCartData(cartData) {
+  localStorage.setItem('lumina_cart', JSON.stringify(cartData));
   updateCartUI();
 }
 
 function addToCart(productId) {
+  const cartData = getCart();
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
-  const existing = cart.find(i => i.id === productId);
+  const existing = cartData.find(i => i.id === productId);
   if (existing) {
     existing.qty++;
   } else {
-    cart.push({ id: product.id, qty: 1 });
+    cartData.push({ id: product.id, qty: 1 });
   }
-  saveCart();
+  saveCartData(cartData);
   showToast(`✓ ${product.name} u shtua`);
 }
 
 function removeFromCart(productId) {
-  cart = cart.filter(i => i.id !== productId);
-  saveCart();
+  const cartData = getCart().filter(i => i.id !== productId);
+  saveCartData(cartData);
 }
 
 function changeQty(productId, delta) {
-  const item = cart.find(i => i.id === productId);
+  const cartData = getCart();
+  const item = cartData.find(i => i.id === productId);
   if (!item) return;
   item.qty = Math.max(1, item.qty + delta);
-  saveCart();
+  saveCartData(cartData);
 }
 
 function getCartTotal() {
-  return cart.reduce((sum, item) => {
+  return getCart().reduce((sum, item) => {
     const p = PRODUCTS.find(p => p.id === item.id);
     return sum + (p ? p.price * item.qty : 0);
   }, 0);
 }
 
 function getCartCount() {
-  return cart.reduce((sum, item) => sum + item.qty, 0);
+  return getCart().reduce((sum, item) => sum + item.qty, 0);
 }
 
 function updateCartUI() {
+  const cartData = getCart();
   const count = getCartCount();
   document.querySelectorAll('#cart-count').forEach(el => el.textContent = count);
 
@@ -56,22 +61,19 @@ function updateCartUI() {
 
   if (!itemsEl) return;
 
-  if (cart.length === 0) {
+  if (cartData.length === 0) {
     if (emptyEl) emptyEl.style.display = 'flex';
     if (footerEl) footerEl.style.display = 'none';
-    const items = itemsEl.querySelectorAll('.cart-item');
-    items.forEach(i => i.remove());
+    itemsEl.querySelectorAll('.cart-item').forEach(i => i.remove());
     return;
   }
 
   if (emptyEl) emptyEl.style.display = 'none';
   if (footerEl) footerEl.style.display = 'block';
 
-  // Re-render all items
-  const existing = itemsEl.querySelectorAll('.cart-item');
-  existing.forEach(i => i.remove());
+  itemsEl.querySelectorAll('.cart-item').forEach(i => i.remove());
 
-  cart.forEach(item => {
+  cartData.forEach(item => {
     const p = PRODUCTS.find(p => p.id === item.id);
     if (!p) return;
     const div = document.createElement('div');
